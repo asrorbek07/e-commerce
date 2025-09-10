@@ -18,20 +18,20 @@ public class AuditConfig {
     public AuditorAware<String> auditorProvider() {
         return () -> {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            
+
             if (authentication == null || !authentication.isAuthenticated()) {
                 return Optional.of("system");
             }
-            
+
             Object principal = authentication.getPrincipal();
             if (principal instanceof UserPrincipal userPrincipal) {
                 return Optional.of(userPrincipal.getUsername());
             }
-            
+
             if (principal instanceof String) {
                 return Optional.of((String) principal);
             }
-            
+
             return Optional.of("system");
         };
     }

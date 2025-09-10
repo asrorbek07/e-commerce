@@ -6,8 +6,6 @@ import com.example.ecommerce.model.OrderItem;
 import com.example.ecommerce.model.Product;
 import lombok.experimental.UtilityClass;
 
-import java.math.BigDecimal;
-
 @UtilityClass
 public class OrderItemBuilder {
 

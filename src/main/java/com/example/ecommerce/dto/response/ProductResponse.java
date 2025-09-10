@@ -1,6 +1,5 @@
 package com.example.ecommerce.dto.response;
 
-import com.example.ecommerce.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductResponse {
-    
+
     private Long id;
     private String name;
     private String description;
@@ -24,5 +23,5 @@ public class ProductResponse {
     private Boolean isActive;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    
+
 }

@@ -1,6 +1,5 @@
 package com.example.ecommerce.dto.response;
 
-import com.example.ecommerce.model.OrderItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +18,5 @@ public class OrderItemResponse {
     private Integer quantity;
     private BigDecimal price;
     private BigDecimal totalPrice;
-    
+
 }

@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JwtAuthenticationResponse {
-    
+
     private String accessToken;
-    
+
     @Builder.Default
     private String tokenType = "Bearer";
-    
+
     private UserResponse user;
 }

@@ -11,13 +11,13 @@ import java.util.List;
 
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
-    
+
     @Query("SELECT oi.product.id, oi.product.name, SUM(oi.quantity) as totalSold, SUM(oi.price * oi.quantity) as totalRevenue " +
-           "FROM OrderItem oi " +
-           "WHERE oi.order.status = 'DELIVERED' " +
-           "AND oi.order.createdAt BETWEEN :startDate AND :endDate " +
-           "GROUP BY oi.product.id, oi.product.name " +
-           "ORDER BY totalSold DESC")
-    List<Object[]> findTopSellingProducts(@Param("startDate") LocalDateTime startDate, 
-                                        @Param("endDate") LocalDateTime endDate);
+            "FROM OrderItem oi " +
+            "WHERE oi.order.status = 'DELIVERED' " +
+            "AND oi.order.createdAt BETWEEN :startDate AND :endDate " +
+            "GROUP BY oi.product.id, oi.product.name " +
+            "ORDER BY totalSold DESC")
+    List<Object[]> findTopSellingProducts(@Param("startDate") LocalDateTime startDate,
+                                          @Param("endDate") LocalDateTime endDate);
 }

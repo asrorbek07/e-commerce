@@ -1,8 +1,8 @@
 package com.example.ecommerce.util.builder;
 
 import com.example.ecommerce.dto.request.RegisterRequest;
-import com.example.ecommerce.model.vo.Role;
 import com.example.ecommerce.model.User;
+import com.example.ecommerce.model.vo.Role;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

@@ -1,12 +1,12 @@
 package com.example.ecommerce.service;
 
-import com.example.ecommerce.util.builder.ProductBuilder;
-import com.example.ecommerce.util.builder.ResponseBuilder;
-import com.example.ecommerce.util.checker.ProductChecker;
 import com.example.ecommerce.dto.request.ProductRequest;
 import com.example.ecommerce.dto.response.ProductResponse;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.repository.ProductRepository;
+import com.example.ecommerce.util.builder.ProductBuilder;
+import com.example.ecommerce.util.builder.ResponseBuilder;
+import com.example.ecommerce.util.checker.ProductChecker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,22 +26,22 @@ public class ProductService {
     private final ProductChecker productChecker;
 
     public Page<ProductResponse> getAllProducts(int page, int size, String sortBy, String sortDir) {
-        Sort sort = sortDir.equalsIgnoreCase("desc") ? 
+        Sort sort = sortDir.equalsIgnoreCase("desc") ?
                 Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
-        
+
         Pageable pageable = PageRequest.of(page, size, sort);
         return productRepository.findAllActive(pageable)
                 .map(ResponseBuilder::createProductResponse);
     }
 
-    public Page<ProductResponse> searchProducts(String name, String category, 
-                                              BigDecimal minPrice, BigDecimal maxPrice,
-                                              int page, int size, String sortBy, String sortDir) {
-        Sort sort = sortDir.equalsIgnoreCase("desc") ? 
+    public Page<ProductResponse> searchProducts(String name, String category,
+                                                BigDecimal minPrice, BigDecimal maxPrice,
+                                                int page, int size, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase("desc") ?
                 Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
-        
+
         Pageable pageable = PageRequest.of(page, size, sort);
-        
+
         if (name != null && !name.trim().isEmpty()) {
             return productRepository.findByNameContainingAndActive(name, pageable)
                     .map(ResponseBuilder::createProductResponse);
@@ -59,21 +59,21 @@ public class ProductService {
 
     public ProductResponse getProductById(Long id) {
         Product product = productChecker.checkProductExists(id);
-        
+
         return ResponseBuilder.createProductResponse(product);
     }
 
     public ProductResponse createProduct(ProductRequest request) {
-        
+
         Product product = ProductBuilder.fromProductRequest(request);
 
         product = productRepository.save(product);
-        
+
         return ResponseBuilder.createProductResponse(product);
     }
 
     public ProductResponse updateProduct(Long id, ProductRequest request) {
-        
+
         Product product = productChecker.checkProductExists(id);
 
         product.setName(request.getName());
@@ -87,11 +87,11 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id) {
-        
+
         Product product = productChecker.checkProductExists(id);
         product.setIsActive(false);
         productRepository.save(product);
-        
+
     }
 
     public List<String> getAllCategories() {

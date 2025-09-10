@@ -10,8 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableRetry
 public class ECommerceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ECommerceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ECommerceApplication.class, args);
+    }
 
 }

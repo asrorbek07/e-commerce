@@ -4,16 +4,15 @@ import com.example.ecommerce.exception.BadRequestException;
 import com.example.ecommerce.exception.InsufficientStockException;
 import com.example.ecommerce.exception.ResourceNotFoundException;
 import com.example.ecommerce.model.Order;
-import com.example.ecommerce.model.vo.OrderStatus;
 import com.example.ecommerce.model.Product;
 import com.example.ecommerce.model.User;
+import com.example.ecommerce.model.vo.OrderStatus;
 import com.example.ecommerce.repository.OrderRepository;
 import com.example.ecommerce.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -37,19 +36,9 @@ public class OrderChecker {
     public void checkStockAvailability(Product product, Integer requestedQuantity) {
         if (product.getStock() < requestedQuantity) {
             throw new InsufficientStockException(
-                "Insufficient stock for product: " + product.getName() + 
-                ". Available: " + product.getStock() + ", Requested: " + requestedQuantity
+                    "Insufficient stock for product: " + product.getName() +
+                            ". Available: " + product.getStock() + ", Requested: " + requestedQuantity
             );
-        }
-    }
-
-    public void checkAllProductsAvailability(Map<Product, Integer> productQuantityMap) {
-        for (Map.Entry<Product, Integer> entry : productQuantityMap.entrySet()) {
-            Product product = entry.getKey();
-            Integer quantity = entry.getValue();
-            
-            checkProductAvailability(product);
-            checkStockAvailability(product, quantity);
         }
     }
 
@@ -60,9 +49,9 @@ public class OrderChecker {
     }
 
     public void checkOrderCanBeCanceled(Order order) {
-        if (order.getStatus() == OrderStatus.SHIPPED || 
-            order.getStatus() == OrderStatus.DELIVERED || 
-            order.getStatus() == OrderStatus.CANCELLED) {
+        if (order.getStatus() == OrderStatus.SHIPPED ||
+                order.getStatus() == OrderStatus.DELIVERED ||
+                order.getStatus() == OrderStatus.CANCELLED) {
             throw new BadRequestException("Cannot cancel order in " + order.getStatus() + " status");
         }
     }

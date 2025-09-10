@@ -1,7 +1,6 @@
 package com.example.ecommerce.dto.response;
 
 import com.example.ecommerce.model.vo.Role;
-import com.example.ecommerce.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +17,5 @@ public class UserResponse {
     private String firstName;
     private String lastName;
     private Role role;
-    
+
 }

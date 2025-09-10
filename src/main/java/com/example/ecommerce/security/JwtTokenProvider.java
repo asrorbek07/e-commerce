@@ -20,7 +20,7 @@ public class JwtTokenProvider {
     private final long jwtExpirationMs;
 
     public JwtTokenProvider(@Value("${app.jwt.secret}") String jwtSecret,
-                           @Value("${app.jwt.expiration}") long jwtExpirationMs) {
+                            @Value("${app.jwt.expiration}") long jwtExpirationMs) {
         this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
         this.jwtExpirationMs = jwtExpirationMs;
     }
@@ -70,11 +70,17 @@ public class JwtTokenProvider {
                     .parseSignedClaims(authToken);
             return true;
         } catch (SecurityException ex) {
+            log.warn("Invalid JWT signature: {}", ex.getMessage());
         } catch (MalformedJwtException ex) {
+            log.warn("Invalid JWT token: {}", ex.getMessage());
         } catch (ExpiredJwtException ex) {
+            log.info("JWT token expired: {}", ex.getMessage());
         } catch (UnsupportedJwtException ex) {
+            log.warn("Unsupported JWT token: {}", ex.getMessage());
         } catch (IllegalArgumentException ex) {
+            log.warn("JWT claims string is empty: {}", ex.getMessage());
         }
         return false;
     }
+
 }

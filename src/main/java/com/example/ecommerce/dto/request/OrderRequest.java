@@ -13,11 +13,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderRequest {
-    
+
     @NotEmpty(message = "Order items cannot be empty")
     @Valid
     private List<OrderItemRequest> items;
-    
+
     @Size(max = 500, message = "Shipping address must not exceed 500 characters")
     private String shippingAddress;
 }
