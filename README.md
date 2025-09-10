@@ -56,14 +56,14 @@ gradlew.bat bootRun
 # - Health Check: http://localhost:8080/actuator/health
 ```
 
-### Option 2: IDE Development
+### Option 2: IDE Development (Recommended)
 ```
 1. Start PostgreSQL using `docker-compose.dev.yml`
 2. Set active profile to `local` in your IDE
 3. Run `ECommerceApplication.java`
 ```
 
-### Option 3: Docker Compose (Recommended)
+### Option 3: Docker Compose
 ```
 bash
 # Clone the repository
