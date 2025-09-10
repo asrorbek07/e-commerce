@@ -3,9 +3,6 @@ package com.example.ecommerce.controller;
 import com.example.ecommerce.dto.request.ProductRequest;
 import com.example.ecommerce.dto.response.ProductResponse;
 import com.example.ecommerce.service.ProductService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -30,7 +27,7 @@ public class ProductController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "asc") String sortDir) {
-        
+
         Page<ProductResponse> products = productService.getAllProducts(page, size, sortBy, sortDir);
         return ResponseEntity.ok(products);
     }
@@ -45,7 +42,7 @@ public class ProductController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "asc") String sortDir) {
-        
+
         Page<ProductResponse> products = productService.searchProducts(
                 name, category, minPrice, maxPrice, page, size, sortBy, sortDir);
         return ResponseEntity.ok(products);
@@ -67,7 +64,7 @@ public class ProductController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id,
-                                                        @Valid @RequestBody ProductRequest request) {
+                                                         @Valid @RequestBody ProductRequest request) {
         ProductResponse product = productService.updateProduct(id, request);
         return ResponseEntity.ok(product);
     }
